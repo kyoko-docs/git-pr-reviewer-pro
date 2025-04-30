@@ -1,0 +1,59 @@
+name: バグ報告
+about: 振る舞いや定義に問題がある場合はこちらを使用
+labels: bug
+
+title: "[Bug] 現象の簡約説明"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        下記の項目を埋めていだけるとデバッグが簡単になります :)
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 現象
+      description: 発生した問題を簡潔に説明してください
+      placeholder: |
+        PRを開こうとしたらエラーがでた。
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: 再現手順
+      description: 問題を再現するためのステップを詳細に説明してください
+      placeholder: |
+        1. PRページへ移動
+        2. 'Collapse All'をクリック
+        3. 何も起こらない
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: ブラウザ種別
+      options:
+        - Chrome (Stable)
+        - Chrome (Canary)
+        - Edge
+        - Brave
+        - Firefox
+        - Other
+
+  - type: input
+    id: version
+    attributes:
+      label: 拡張機能バージョン
+      placeholder: e.g. 0.0.3
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 他の情報
+      description: 誰かが再現しやすくなる情報を追加して下さい
+      placeholder: e.g. DevToolsのコンソール出力
+

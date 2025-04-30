@@ -1,54 +1,64 @@
-# React + TypeScript + Vite
+# Git-PR Reviewer Pro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GitHub Pull Request をより効率的にレビューするための Chrome 拡張機能です。AI 要約、Collapse/Expand 操作、高速 UI をサポートします。
 
-Currently, two official plugins are available:
+## 🔧 開発手順
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. 初期セットアップ
+```bash
+# Node.js LTS 環境を使用（例: Node 18）
+nvm install 18 && nvm use 18
 
-## Expanding the ESLint configuration
+# pnpm を有効化
+corepack enable && corepack prepare pnpm@latest --activate
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+# 依存関係インストール
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 2. 開発モードで起動
+```bash
+pnpm dev
 ```
+- `localhost:5173` で開発サーバーが起動します。
+- Chrome拡張としては `dist/` を Chrome に読み込みます。
+
+### 3. ビルド
+```bash
+pnpm build
+```
+- `dist/` フォルダにビルド成果物が出力されます。
+
+## ⚙️ 環境変数設定
+プロジェクトルートに `.env.local` ファイルを作成してください。
+
+```env
+VITE_OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
+```
+
+## 📁 ディレクトリ構成
+```
+├── public/                # アイコンなど静的リソース
+├── options.html           # オプション画面（APIキー設定UI）
+├── src/
+│   ├── main.tsx           # エントリーポイント
+│   ├── App.tsx            # メイン画面
+│   └── options/ApiKey.tsx # APIキー設定 + 暗号化PoC
+├── vite.config.ts         # Viteビルド設定（CRXJS）
+└── manifest.ts            # 拡張のメタ情報
+```
+
+## 🧪 GitHub Actions CI
+`.github/workflows/ci.yml` にて以下をチェック：
+- `pnpm install`
+- `pnpm build`
+- ビルド成功 (CI green)
+
+## 🛡️ セキュリティ方針
+`docs/security.md` に記載：
+- APIキーは AES-GCM(256bit) にて暗号化し、`chrome.storage.local` に保存
+- 復号鍵は `sessionStorage` に保持
+
+## 📄 ライセンス
+MIT
+
