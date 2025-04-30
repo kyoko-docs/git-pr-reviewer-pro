@@ -8,7 +8,15 @@ export default {
   host_permissions: ["https://github.com/*"],
   action: {
     default_popup: "index.html",
-    default_icon: "icon.png",
+    default_icon: {
+      48: "icons/icon48.png",
+      128: "icons/icon128.png",
+    },
+  },
+  icons: {
+    32: "icons/icon32.png",
+    48: "icons/icon48.png",
+    128: "icons/icon128.png",
   },
   permissions: [],
   background: {
