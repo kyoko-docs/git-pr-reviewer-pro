@@ -12,7 +12,7 @@ export default {
   },
   permissions: [],
   background: {
-    service_worker: "background.js",
+    service_worker: "src/background.ts",
   },
   content_scripts: [],
 };
