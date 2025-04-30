@@ -23,5 +23,19 @@ export default {
   background: {
     service_worker: "src/background.ts",
   },
-  content_scripts: [],
+  web_accessible_resources: [
+    {
+      matches: ["https://github.com/*"],
+      resources: [
+        "vendor/*", // HMR / preamble 等の出力先
+        "assets/*.js", // content-script-preamble 等
+      ],
+    },
+  ],
+  content_scripts: [
+    {
+      matches: ["https://github.com/*/*/pull/*/files*"],
+      js: ["src/content/index.ts"],
+    },
+  ],
 };
