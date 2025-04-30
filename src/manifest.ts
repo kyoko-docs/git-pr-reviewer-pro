@@ -5,6 +5,7 @@ export default {
   version: "0.0.1",
   description:
     "Fast file collapsing, AI summary, and progress bar for GitHub PRs.",
+  options_page: "options.html",
   host_permissions: ["https://github.com/*"],
   action: {
     default_popup: "index.html",
@@ -18,7 +19,7 @@ export default {
     48: "icons/icon48.png",
     128: "icons/icon128.png",
   },
-  permissions: [],
+  permissions: ["storage"],
   background: {
     service_worker: "src/background.ts",
   },
