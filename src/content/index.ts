@@ -5,6 +5,7 @@ if (!location.pathname.match(/^\/[^/]+\/[^/]+\/pull\/\d+\/files/)) {
   console.log("[GPRP] not a PR files page");
 } else {
   console.log("[GPRP] content loaded");
+  attachToggleListeners();
 }
 
 // ② collapseAll() 関数
@@ -21,6 +22,7 @@ function collapseAll() {
     });
   chrome.storage.local.set({ collapsed: true }).catch(console.error);
   console.log("[GPRP] collapseAll() executed");
+  attachToggleListeners();
 }
 
 function expandAll() {
@@ -34,6 +36,7 @@ function expandAll() {
     });
   chrome.storage.local.set({ collapsed: false }).catch(console.error);
   console.log("[GPRP] expandAll() executed");
+  attachToggleListeners();
 }
 
 // ③ メッセージリスナーで “collapse” を受信したら実行
@@ -58,6 +61,21 @@ chrome.storage.local.get("collapsed", (result) => {
     expandAll();
   }
 });
+
+function attachToggleListeners() {
+  document
+    .querySelectorAll<HTMLButtonElement>("button.js-details-target")
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const container = btn.closest<HTMLElement>(".js-details-container");
+        const content =
+          container?.querySelector<HTMLElement>(".js-file-content");
+        if (content) {
+          content.style.removeProperty("display");
+        }
+      });
+    });
+}
 
 // collapseAll のテスト用露出
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
