@@ -32,6 +32,15 @@ export default {
       ],
     },
   ],
+  commands: {
+    "toggle-collapse": {
+      suggested_key: {
+        default: "Ctrl+Shift+X", // ← Windows/Linux 用
+        mac: "Command+Shift+X", // ← mac 用
+      },
+      description: "Collapse/Expand all files",
+    },
+  },
   content_scripts: [
     {
       matches: ["https://github.com/*/*/pull/*/files*"],
