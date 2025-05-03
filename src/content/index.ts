@@ -1,4 +1,9 @@
 // src/content/index.ts
+import {
+  collapseAllContainers,
+  expandAllContainers,
+  attachToggleListeners,
+} from "../lib/dom";
 
 // ① 対象 URL 判定
 if (!location.pathname.match(/^\/[^/]+\/[^/]+\/pull\/\d+\/files/)) {
@@ -10,36 +15,21 @@ if (!location.pathname.match(/^\/[^/]+\/[^/]+\/pull\/\d+\/files/)) {
 
 // ② collapseAll() 関数
 function collapseAll() {
-  // GitHub の PR Files changed では
-  // each file container が .js-details-container クラスを持つ div なのでここで取得
-  document
-    .querySelectorAll<HTMLElement>(".js-details-container")
-    .forEach((container) => {
-      container.classList.remove("open");
-      container.classList.remove("Details--on");
-      const content = container.querySelector<HTMLElement>(".js-file-content");
-      if (content) content.style.display = "none";
-    });
+  collapseAllContainers();
   chrome.storage.local.set({ collapsed: true }).catch(console.error);
   console.log("[GPRP] collapseAll() executed");
   attachToggleListeners();
 }
 
+// ③ expandAll() 関数
 function expandAll() {
-  document
-    .querySelectorAll<HTMLElement>(".js-details-container")
-    .forEach((container) => {
-      container.classList.add("open");
-      container.classList.add("Details--on");
-      const content = container.querySelector<HTMLElement>(".js-file-content");
-      if (content) content.style.display = "";
-    });
+  expandAllContainers();
   chrome.storage.local.set({ collapsed: false }).catch(console.error);
   console.log("[GPRP] expandAll() executed");
   attachToggleListeners();
 }
 
-// ③ メッセージリスナーで “collapse” を受信したら実行
+// ④ メッセージリスナーで “collapse” / “expand” を受信
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg === "collapse") {
     collapseAll();
@@ -50,11 +40,9 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   }
 });
 
-// ④ 初期ロード時に前回状態を読み込んで復元
-// 初期ロード時（undefined対策付き）
+// ⑤ 初期ロード時に前回状態を読み込んで復元
 chrome.storage.local.get("collapsed", (result) => {
-  // undefined のときは「展開状態(false)」がデフォルト
-  const collapsed = result.collapsed === true;
+  const collapsed = result.collapsed === true; // undefined は展開状態(false)
   if (collapsed) {
     collapseAll();
   } else {
@@ -62,25 +50,8 @@ chrome.storage.local.get("collapsed", (result) => {
   }
 });
 
-function attachToggleListeners() {
-  document
-    .querySelectorAll<HTMLButtonElement>("button.js-details-target")
-    .forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const container = btn.closest<HTMLElement>(".js-details-container");
-        const content =
-          container?.querySelector<HTMLElement>(".js-file-content");
-        if (content) {
-          content.style.removeProperty("display");
-        }
-      });
-    });
-}
-
-// collapseAll のテスト用露出
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// テスト用グローバル露出
+/* eslint-disable @typescript-eslint/no-explicit-any */
 (window as any).collapseAll = collapseAll;
-
-// 追加：expandAll も同様に露出
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).expandAll = expandAll;
+/* eslint-enable @typescript-eslint/no-explicit-any */
