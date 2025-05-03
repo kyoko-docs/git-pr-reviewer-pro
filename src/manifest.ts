@@ -8,7 +8,7 @@ export default {
   options_page: "options.html",
   host_permissions: ["https://github.com/*"],
   action: {
-    default_popup: "index.html",
+    default_popup: "popup.html",
     default_icon: {
       48: "icons/icon48.png",
       128: "icons/icon128.png",
@@ -19,7 +19,7 @@ export default {
     48: "icons/icon48.png",
     128: "icons/icon128.png",
   },
-  permissions: ["storage"],
+  permissions: ["storage", "tabs", "activeTab"],
   background: {
     service_worker: "src/background.ts",
   },
