@@ -1,0 +1,10 @@
+/* src/popup/Popup.css */
+.popup-container {
+    width: 240px;
+    padding: 16px;
+  }
+  .popup-container h3 {
+    font-size: var(--font-heading);
+    margin-bottom: 12px;
+  }
+  

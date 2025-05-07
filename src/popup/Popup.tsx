@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
+import "./Popup.css";
+import "../styles/common.css";
 
 const Popup = () => {
   const [collapsed, setCollapsed] = useState<boolean>(true);
@@ -35,7 +37,10 @@ const Popup = () => {
   };
 
   return (
-    <div style={{ width: 200, padding: 16, fontFamily: "sans-serif" }}>
+    <div
+      className="popup-container"
+      style={{ width: 200, padding: 16, fontFamily: "sans-serif" }}
+    >
       <h3>Git-PR Reviewer Pro</h3>
       <button onClick={toggle}>
         {collapsed ? "Expand All" : "Collapse All"}

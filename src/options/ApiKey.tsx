@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./ApiKey.css";
+import "../styles/common.css";
 
 export const ApiKey = () => {
   const [key, setKey] = useState("");
@@ -48,7 +50,7 @@ export const ApiKey = () => {
   };
 
   return (
-    <div>
+    <div className="options-container">
       <h2>Enter your OpenAI API Key</h2>
       <input
         type="password"

@@ -1,0 +1,20 @@
+/* src/options/ApiKey.css */
+.options-container {
+    padding: 20px;
+    font-size: var(--font-base);
+  }
+  
+  /* API入力欄の下に余白を追加 */
+  .options-container input {
+    width: 100%;
+    padding: 6px 8px;
+    margin-bottom: 12px;     /* ← ここを追加 */
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+  }
+  
+  /* ボタンの上にも余白を追加 */
+  .options-container button {
+    display: block;          /* 横幅いっぱいにするなら width:100% も追加 */
+    margin-top: 12px;        /* ← ここを追加 */
+  }
