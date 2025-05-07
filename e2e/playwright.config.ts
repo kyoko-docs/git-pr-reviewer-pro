@@ -13,7 +13,7 @@ export default defineConfig({
     port: 5000,
     cwd: path.resolve(__dirname, ".."), // 実行ディレクトリをルートに設定
     timeout: 120 * 1000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
 });
