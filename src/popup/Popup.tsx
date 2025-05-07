@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
+import { toggleCollapse } from "../lib/api";
 import "./Popup.css";
 import "../styles/common.css";
 
@@ -15,25 +16,10 @@ const Popup = () => {
 
   const toggle = async () => {
     const start = performance.now();
-    // ① アクティブタブを取得
-    const tabs = await new Promise<chrome.tabs.Tab[]>((resolve) =>
-      chrome.tabs.query({ active: true, currentWindow: true }, resolve),
-    );
-    if (!tabs[0]?.id) return;
-
-    // ② コンテンツスクリプトにメッセージ送信
-    await new Promise<void>((resolve) =>
-      chrome.tabs.sendMessage(
-        tabs[0].id!,
-        collapsed ? "expand" : "collapse",
-        () => resolve(),
-      ),
-    );
-
+    await toggleCollapse(collapsed);
     const end = performance.now();
     setElapsedMs(Math.round(end - start));
     setCollapsed(!collapsed);
-    console.log(`[GPRP] toggle took ${Math.round(end - start)} ms`);
   };
 
   return (
