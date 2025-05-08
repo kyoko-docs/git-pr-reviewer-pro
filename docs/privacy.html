@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>プライバシーポリシー - Git-PR Reviewer Pro</title>
+  <style>
+    body {
+      max-width: 800px;
+      margin: auto;
+      padding: 1rem;
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+    }
+    h1, h2 {
+      color: #0366d6;
+    }
+    code {
+      background: #f6f8fa;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>プライバシーポリシー</h1>
+  <p>
+    Git-PR Reviewer Pro（以下「本拡張機能」）は、お客様のプライバシー保護を最優先に考えています。
+    本ポリシーでは、本拡張機能が取り扱う情報の種類とその利用・保存方法についてご説明します。
+  </p>
+
+  <h2>1. 収集する情報</h2>
+  <ul>
+    <li>
+      本バージョン（v0.1.0）ではユーザー情報の収集は行いません。
+    </li>
+  </ul>
+  <p>
+    本拡張機能では上記以外の個人情報や行動履歴なども一切収集しません。
+  </p>
+  
+  <h2>2. 今後の予定</h2>
+  <p>
+    次期バージョン（v0.2.0）では、AI 要約機能を追加予定です。
+    実装時には OpenAI API キーを暗号化して保存します。
+  </p>
+
+  <h2>2. 情報の利用目的</h2>
+  <p>
+    保存された API キーは、本バージョン（v0.1.0）では実際には送信しませんが、
+    将来実装予定の AI 要約機能等で OpenAI API を呼び出す際に利用されます。
+  </p>
+
+  <h2>3. 情報の保存および管理</h2>
+  <ul>
+    <li>
+      API キーは <code>chrome.storage.local</code> に暗号化して保存され、
+      復号鍵は <code>sessionStorage</code> にのみ保持されます。
+    </li>
+    <li>
+      ブラウザを閉じると <code>sessionStorage</code> はクリアされるため、
+      復号鍵は永続的に保存されません。
+    </li>
+  </ul>
+
+  <h2>4. 第三者提供</h2>
+  <p>
+    本拡張機能は、収集した情報を第三者に提供、販売、共有することは一切ありません。
+  </p>
+
+  <h2>5. 外部リソースの利用</h2>
+  <p>
+    本拡張機能に含まれるすべてのスクリプト・スタイルシートはパッケージ内に含まれており、
+    外部サーバーからのコード読み込みや <code>eval()</code>、リモートコードの実行は行いません。
+  </p>
+
+  <h2>6. プライバシーポリシーの変更</h2>
+  <p>
+    本ポリシーは予告なく内容を変更する場合があります。最新の内容は本ページでご確認ください。
+  </p>
+
+  <h2>7. お問い合わせ</h2>
+  <p>
+    本ポリシーに関するご質問は、以下のメールアドレスまでご連絡ください。<br>
+    <a href="mailto:example@example.com">example@example.com</a>
+  </p>
+</body>
+</html>
